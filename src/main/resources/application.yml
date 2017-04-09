@@ -1,0 +1,25 @@
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+
+spring:
+  freemarker:
+    suffix: .ftl
+    content-type: text/html
+
+openidconnect:
+  client:
+    clientId: ${OPEN_ID_CLIENT}
+    clientSecret: ${OPEN_ID_CLIENT_SECRET}
+    redirectUri: http://localhost:8080/login
+    responseType: code
+    scope: email profile
+    prompt: none
+    grantType: authorization_code
+    clientAuthenticationScheme: form
+    tokenEndpoint: https://www.googleapis.com/oauth2/v4/token
+    authorizationEndpoint: https://accounts.google.com/o/oauth2/v2/auth
+    userInfoEndPoint: https://www.googleapis.com/oauth2/v3/userinfo
+    jwksUri: https://www.googleapis.com/oauth2/v3/certs
