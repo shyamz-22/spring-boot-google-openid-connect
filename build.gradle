@@ -41,6 +41,8 @@ dependencies {
     compile('com.nimbusds:nimbus-jose-jwt:4.34.2')
 	compile group: 'com.google.api-client', name: 'google-api-client', version: '1.22.0'
 
+	compile("org.springframework.boot:spring-boot-devtools")
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.6.2'
 

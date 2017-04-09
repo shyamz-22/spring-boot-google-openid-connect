@@ -35,7 +35,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         http
                 .addFilterBefore(openIdCallBackProcessingFilter(), UsernamePasswordAuthenticationFilter::class.java)
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()

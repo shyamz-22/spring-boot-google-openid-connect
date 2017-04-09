@@ -8,16 +8,15 @@ spring:
   freemarker:
     suffix: .ftl
     content-type: text/html
-    cache: false
 
 openidconnect:
   client:
-    clientId: ${OPEN_ID_CLIENT}
-    clientSecret: ${OPEN_ID_CLIENT_SECRET}
+    clientId: 492969389947-p1j3ng540j33ikaqbl3j0odui7fgok86.apps.googleusercontent.com
+    clientSecret: VGIdACVaTPzPUGFqeYfIGvGz
     redirectUri: http://localhost:8080/login
     responseType: code
     scope: email profile
-    prompt: login
+#    prompt: none
     grantType: authorization_code
     clientAuthenticationScheme: form
     tokenEndpoint: https://www.googleapis.com/oauth2/v4/token
