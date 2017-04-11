@@ -1,0 +1,35 @@
+{
+  "name": "openid-implicit",
+  "version": "1.0.0",
+  "description": "Client side application to demonstrate open id connect implicit flow",
+  "main": "app.js",
+  "scripts": {
+    "webpack": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shyamz-22/spring-boot-google-openid-connect.git"
+  },
+  "keywords": [
+    "openid-connect",
+    "implicit",
+    "openid",
+    "authentication"
+  ],
+  "author": "Syamala Umamaheswaran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shyamz-22/spring-boot-google-openid-connect/issues"
+  },
+  "homepage": "https://github.com/shyamz-22/spring-boot-google-openid-connect#readme",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "react": "^15.5.3",
+    "react-dom": "^15.5.3",
+    "webpack": "^2.3.3"
+  }
+}
