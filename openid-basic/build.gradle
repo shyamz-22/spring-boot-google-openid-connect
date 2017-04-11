@@ -1,16 +1,16 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.2.RELEASE'
-		kotlinVersion = '1.1.1'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    ext {
+        springBootVersion = '1.5.2.RELEASE'
+        kotlinVersion = '1.1.1'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath("org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion")
-	}
+    }
 }
 
 apply plugin: 'kotlin'
@@ -22,7 +22,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 ext {
@@ -36,14 +36,14 @@ dependencies {
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonKotlinVersion"
 
     compile('org.springframework.boot:spring-boot-starter-security')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.boot:spring-boot-starter-freemarker')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-freemarker')
     compile('com.nimbusds:nimbus-jose-jwt:4.34.2')
-	compile group: 'com.google.api-client', name: 'google-api-client', version: '1.22.0'
+    compile group: 'com.google.api-client', name: 'google-api-client', version: '1.22.0'
 
-	compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.springframework.boot:spring-boot-devtools")
 
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.6.2'
 
 }
