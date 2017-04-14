@@ -9,7 +9,7 @@ class MortgageCalculator extends React.Component {
         this.state = {
             principal: this.props.principal,
             years: this.props.years,
-            rate: this.props.rate
+            rate:  this.props.rate
         };
     }
 
@@ -27,7 +27,7 @@ class MortgageCalculator extends React.Component {
 
     render() {
         // ES6: Object destructuring syntax
-        let {monthlyPayment, amortization} =mortgage.calculatePayment(this.state.principal, this.state.years, this.state.rate);
+        let {monthlyPayment, amortization} = mortgage.calculatePayment(this.state.principal, this.state.years, this.state.rate);
         return (
             <div className="content">
                 <div className="form">
@@ -44,11 +44,13 @@ class MortgageCalculator extends React.Component {
                         <input type="text" value={this.state.rate} onChange={this.rateChange.bind(this)}/>
                     </div>
                 </div>
-                <h2>Monthly Payment: <span className="currency">{Number(monthlyPayment.toFixed(2)).toLocaleString()}</span></h2>
+                <h2>Monthly Payment: <span
+                    className="currency">{Number(monthlyPayment.toFixed(2)).toLocaleString()}</span></h2>
                 <AmortizationChart data={amortization}/>
             </div>
         );
     }
-};
+}
+
 
 export default MortgageCalculator;

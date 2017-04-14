@@ -9,8 +9,8 @@ class AmortizationChart extends React.Component {
                 <td className="currency principal">{Math.round(year.principalY).toLocaleString()}</td>
                 <td className="stretch">
                     <div className="flex">
-                        <div className="bar principal" style={{flex: year.principalY, WebkitFlex: year.principalY}}></div>
-                        <div className="bar interest" style={{flex: year.interestY, WebkitFlex: year.interestY}}></div>
+                        <div className="bar principal" style={{flex: year.principalY, WebkitFlex: year.principalY}}/>
+                        <div className="bar interest" style={{flex: year.interestY, WebkitFlex: year.interestY}}/>
                     </div>
                 </td>
                 <td className="currency interest">{Math.round(year.interestY).toLocaleString()}</td>
@@ -23,7 +23,7 @@ class AmortizationChart extends React.Component {
                 <tr>
                     <th>Year</th>
                     <th className="principal">Principal</th>
-                    <th className="stretch"></th>
+                    <th className="stretch"/>
                     <th className="interest">Interest</th>
                     <th>Balance</th>
                 </tr>
@@ -32,6 +32,6 @@ class AmortizationChart extends React.Component {
             </table>
         );
     }
-};
+}
 
 export default AmortizationChart;

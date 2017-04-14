@@ -11,7 +11,7 @@ import java.util.*
 class RSAPublicKeyService(val fetchKeys: FetchKeys) {
     private val identityKitPublicKeyMap = HashMap<String, PublicKey>()
 
-    fun     getPublicKey(keyId: String): PublicKey? {
+    fun getPublicKey(keyId: String): PublicKey? {
         if (!identityKitPublicKeyMap.containsKey(keyId)) {
             populateCache(fetchKeys.getPublicKeys())
         }

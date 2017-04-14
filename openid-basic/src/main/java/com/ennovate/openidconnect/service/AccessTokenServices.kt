@@ -7,6 +7,7 @@ import com.ennovate.openidconnect.exception.ErrorPayload
 import com.ennovate.openidconnect.exception.OpenIdConnectException
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.slf4j.LoggerFactory
+import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -36,7 +37,11 @@ class AccessTokenServices(val openIdConnectClient: OpenIdConnectClient) {
                 grantType = grantType.grantType), headers())
 
         try {
-            return RestTemplate().postForEntity(accessTokenRequestUri, request, OpenIdConnectAccessToken::class.java).body
+            val restTemplate = RestTemplateBuilder()
+//                    .basicAuthorization(openIdConnectClient.clientId, openIdConnectClient.clientSecret)
+                    .build()
+
+            return restTemplate.postForEntity(accessTokenRequestUri, request, OpenIdConnectAccessToken::class.java).body
         } catch (ex: HttpClientErrorException) {
             throw OpenIdConnectException(ex.statusCode.toString())
                     .apply { errorPayload = getErrorPayLoad(ex.responseBodyAsString) }

@@ -18,7 +18,7 @@ import java.util.*
 class IdTokenVerifier(private val jwSignatureVerifier: JWSignatureVerifier,
                       private val openIdConnectClient: OpenIdConnectClient) {
 
-    fun validateIdToken(idToken: String): JWTClaimsSet {
+    fun validateIdToken(idToken: String, nonce: String?): JWTClaimsSet {
 
         val jwtClaims = validateAndGet(idToken)
 
@@ -26,6 +26,7 @@ class IdTokenVerifier(private val jwSignatureVerifier: JWSignatureVerifier,
         validateIssuer(jwtClaims)
         validateTokenExpiration(jwtClaims)
         validateTokenIssuedTime(jwtClaims)
+        validateNonce(jwtClaims, nonce)
 
         return jwtClaims
     }
@@ -34,7 +35,7 @@ class IdTokenVerifier(private val jwSignatureVerifier: JWSignatureVerifier,
         val verificationResult: Pair<Boolean, JWTClaimsSet?>
         try {
             verificationResult = jwSignatureVerifier.checkSignature(idToken)
-            if (!verificationResult.first || verificationResult.second == null) {
+            if (!verificationResult.first) {
                 throw OpenIdConnectException("Signature validation failed")
             }
 
@@ -70,6 +71,13 @@ class IdTokenVerifier(private val jwSignatureVerifier: JWSignatureVerifier,
         val duration = Duration.between(Instant.ofEpochMilli(jwtClaimsSet.issueTime.time), Instant.now())
         if (duration.abs().seconds > 300) {
             throw OpenIdConnectException("issued too far away from the current time")
+        }
+    }
+
+    private fun validateNonce(jwtClaims: JWTClaimsSet, nonce: String?) {
+        if(jwtClaims.getClaim("nonce") != nonce) {
+            throw OpenIdConnectException(
+                    "Mismatch in nonce value expected: '$nonce' actual: '${jwtClaims.getClaim("nonce")}'")
         }
     }
 

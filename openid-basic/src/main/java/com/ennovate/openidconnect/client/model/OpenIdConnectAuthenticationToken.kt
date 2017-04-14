@@ -4,14 +4,21 @@ import org.springframework.security.authentication.AbstractAuthenticationToken
 
 
 class OpenIdConnectAuthenticationToken(val accessToken: OpenIdConnectAccessToken,
-                                       var userId: String?,
-                                       var nameOfUser: String?,
-                                       var email: String?,
-                                       var picture: String?,
-                                       var locale: String?
-                                       ) : AbstractAuthenticationToken(null) {
+                                       var userId: String? = null,
+                                       var nameOfUser: String? = null,
+                                       var email: String? = null,
+                                       var picture: String? = null,
+                                       var locale: String? = null,
+                                       var nonce: String? = null
+) : AbstractAuthenticationToken(null) {
 
-    constructor(accessToken: OpenIdConnectAccessToken) : this(accessToken, null, null, null, null, null)
+    constructor(accessToken: OpenIdConnectAccessToken, nonce: String?) : this(accessToken,
+            null,
+            null,
+            null,
+            null,
+            null,
+            nonce)
 
     override fun getCredentials(): Any {
         return accessToken.accessToken

@@ -1,7 +1,6 @@
 package com.ennovate.openidconnect.security
 
 import com.ennovate.openidconnect.client.model.BasicFlowAuthenticationToken
-import com.ennovate.openidconnect.client.model.OpenIdConnectAccessToken
 import com.ennovate.openidconnect.client.model.OpenIdConnectAuthenticationToken
 import com.ennovate.openidconnect.verifier.IdTokenVerifier
 import org.springframework.security.authentication.AuthenticationManager
@@ -18,13 +17,14 @@ class OpenIdAuthenticationManager(val idTokenVerifier: IdTokenVerifier) : Authen
 
         if (!authentication.isAuthenticated) {
             val pendingToken = authentication as BasicFlowAuthenticationToken
-            openIdAuthenticationToken = OpenIdConnectAuthenticationToken(pendingToken.accessToken)
+            openIdAuthenticationToken = OpenIdConnectAuthenticationToken(pendingToken.accessToken, pendingToken.nonce)
 
         } else {
             openIdAuthenticationToken = authentication as OpenIdConnectAuthenticationToken
         }
 
-        val validatedIdTokenClaims = idTokenVerifier.validateIdToken(openIdAuthenticationToken.accessToken.idToken)
+        val validatedIdTokenClaims = idTokenVerifier
+                .validateIdToken(openIdAuthenticationToken.accessToken.idToken, openIdAuthenticationToken.nonce)
 
         openIdAuthenticationToken.apply {
             userId = validatedIdTokenClaims.getStringClaim("sub")

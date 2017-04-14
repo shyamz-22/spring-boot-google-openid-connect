@@ -2,6 +2,7 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 out
+openid-basic/secrets.yml
 
 ### STS ###
 .apt_generated

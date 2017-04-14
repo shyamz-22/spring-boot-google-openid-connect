@@ -10,7 +10,7 @@ class FetchKeys(val jwksUrl: String) {
     fun getPublicKeys(): JWKSet {
         try {
             val connectTimeout = 100
-            val readTimeout = 100
+            val readTimeout = 1000
             val sizeLimit = 10000
             return JWKSet.load(URL(jwksUrl), connectTimeout, readTimeout, sizeLimit)
         } catch (e: Exception) {

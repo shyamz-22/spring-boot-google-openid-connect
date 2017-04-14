@@ -28,7 +28,7 @@
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a href="#">${authenticatedUser.nameOfUser}</a>
+                        <a href="#">${authenticatedUser.nameOfUser!}</a>
                     </div>
                     <div class="desc">${authenticatedUser.email!}</div>
                     <div class="desc">User Id : ${authenticatedUser.userId}</div>
@@ -44,9 +44,11 @@
     </div>
     <div class="row">
         <div class="col-lg-11 col-sm-5">
-            <div class="panel panel-default">
+            <div class="panel panel-warning">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Id Token</h3>
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-qrcode pull-left"></span>
+                        &nbsp;&nbsp;Id Token</h3>
                 </div>
                 <div class="panel-body" style="overflow-y: scroll">
                     <figure> ${authenticatedUser.accessToken.idToken}</figure>

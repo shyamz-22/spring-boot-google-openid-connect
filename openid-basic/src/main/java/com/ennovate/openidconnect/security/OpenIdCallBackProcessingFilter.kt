@@ -26,13 +26,15 @@ class OpenIdCallBackProcessingFilter(defaultUrl: String,
         validateState(request.getStateParameter(), request.getStateFromSession())
         val authCode = request.extractAuthCode()
 
-            if (authCode.isNotEmpty()) {
+        if (authCode.isNotEmpty()) {
             val openIdConnectAccessToken
                     = accessTokenServices.getAccessToken(AUTHORIZATION_CODE, authCode)
 
-            return BasicFlowAuthenticationToken(
+            val basicFlowAuthenticationToken = BasicFlowAuthenticationToken(
                     accessToken = openIdConnectAccessToken,
                     nonce = request.getNonce())
+
+            return this.authenticationManager.authenticate(basicFlowAuthenticationToken)
 
         } else {
             handleAuthorizationError(request)
