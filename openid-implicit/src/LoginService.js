@@ -1,20 +1,19 @@
-import jose from "node-jose";
-import got from "got";
-
-
-let validationResult = null;
-
+import * as idTokenVerifier from "./IdTokenVerifier";
 
 export class User {
     constructor() {
-        this.loggedIn = false;
         this.idToken = null;
+        this.validatedPayload = null;
+    }
+
+    get loggedIn() {
+        return !!(this.validatedPayload !== null && idTokenVerifier.isStillValid(this.validatedPayload.exp));
     }
 }
 
-
 export let getUser = () => {
     let user = window.sessionStorage.getItem("user");
+
     if (user === null) {
         user = JSON.stringify(new User());
         window.sessionStorage.setItem("user", user);
@@ -22,50 +21,35 @@ export let getUser = () => {
     return JSON.parse(user);
 };
 
-export let validateIdToken = async (idToken) => {
-    let keys = (await got("https://www.googleapis.com/oauth2/v3/certs", {json: true})).body;
 
-    // let opts = {
-    //     handlers: {
-    //         "exp": {
-    //             complete: function (jws) {
-    //                 console.log("########" + JSON.stringify(jws));
-    //                 jws.header.exp = new Date(jws.header.exp);
-    //             }
-    //         }
-    //     }
-    // };
-
-    let keystore = jose.JWK.createKeyStore();
-
-    await jose.JWK.asKeyStore(keys).then(function (result) {
-        keystore = result;
-    });
-
-
-    await jose.JWS.createVerify(keystore).verify(idToken)
-        .then(function (result) {
-            validationResult = result;
-        });
-};
-
-
-export let recordAuthenticationSuccess = async (idToken, component) => {
-    let userObj = getUser();
-    let idTokenToBeValidated = (idToken === null) ? userObj.idToken : idToken;
+async function populateUserState(idTokenToBeValidated, userObj) {
 
     if (idTokenToBeValidated !== null) {
 
-        await validateIdToken(idToken);
+        await idTokenVerifier.verify(idTokenToBeValidated);
 
-        if (validationResult !== null) {
-            let userObj = getUser();
+        if (idTokenVerifier.validationResult !== null) {
+
             userObj.loggedIn = true;
-            userObj.idToken = idToken;
+            userObj.idToken = idTokenToBeValidated;
+            userObj.validatedPayload = idTokenVerifier.validationResult.payload;
             window.sessionStorage.setItem("user", JSON.stringify(userObj));
         }
 
+    } else {
+        userObj.loggedIn = false;
+        userObj.idToken = null;
+        userObj.validatedPayload = null;
     }
+}
+
+export let recordAuthenticationSuccess = async (idToken, component) => {
+    let userObj = getUser();
+
+    let idTokenToBeValidated = (idToken === null) ? userObj.idToken : idToken;
+
+    await populateUserState(idTokenToBeValidated, userObj);
+
     return component;
 };
 
