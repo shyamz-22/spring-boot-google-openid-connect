@@ -3,7 +3,6 @@ import LogoutPage from "./LogoutPage";
 
 class Header extends React.Component {
 
-    // ES6: Arrow function shorthand when function consists of single line return statement
     render() {
         const isHomePage = (this.props.title === "Home");
         if (isHomePage) {
@@ -21,7 +20,6 @@ class Header extends React.Component {
         }
 
     }
-
 }
 
 export default Header;

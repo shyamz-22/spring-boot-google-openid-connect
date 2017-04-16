@@ -1,7 +1,7 @@
 import React from "react";
 import {Redirect} from "react-router-dom";
 import LoginPage from "./LoginPage";
-import * as loginService from "./LoginService";
+import * as loginService from "../components/LoginService";
 
 
 class HomePage extends React.Component {
@@ -23,7 +23,7 @@ class HomePage extends React.Component {
     render() {
         const isLoggedIn = this.state.isLoggedIn;
         if (isLoggedIn) {
-            return <Redirect to="/mortgage"/>;
+            return <Redirect to="/user"/>;
         }
         else {
             return (<LoginPage/>);

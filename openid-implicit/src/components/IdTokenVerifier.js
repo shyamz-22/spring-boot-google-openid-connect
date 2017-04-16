@@ -45,8 +45,8 @@ export let verify = async (idToken) => {
 
     await jose.JWS.createVerify(keystore).verify(idToken)
         .then(function (result) {
-            validationResult = result;
             const validatedPayload = JSON.parse(result.payload);
+            validationResult = validatedPayload;
             validateExpire(validatedPayload.exp);
             validateNonce(validatedPayload.nonce);
             validateIssuer(validatedPayload.iss);
