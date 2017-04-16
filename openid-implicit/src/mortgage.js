@@ -9,9 +9,9 @@ export let calculatePayment = (principal, years, rate) => {
         for (let m=0; m<12; m++) {
             let interestM = balance * monthlyRate;       //Interest payment for month m
             let principalM = monthlyPayment - interestM; //Principal payment for month m
-            interestY = interestY + interestM;
-            principalY = principalY + principalM;
-            balance = balance - principalM;
+            interestY += interestM;
+            principalY += principalM;
+            balance -= principalM;
         }
         // ES6: Object creation shorthand
         amortization.push({principalY, interestY, balance});

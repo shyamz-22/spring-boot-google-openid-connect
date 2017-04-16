@@ -26,6 +26,9 @@
   },
   "homepage": "https://github.com/shyamz-22/spring-boot-google-openid-connect#readme",
   "dependencies": {
+    "got":"^6.7.1",
+    "jsonwebtoken": "^7.3.0",
+    "node-jose": "0.9.4",
     "prop-types": "^15.5.6",
     "react": "^15.5.3",
     "react-dom": "^15.5.3"
